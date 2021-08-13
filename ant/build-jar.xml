@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="" default="readme" basedir="."> <!-- TODO: set project name -->
+	<description>
+	</description>
+
+	<!-- =========================================================================================================== -->
+	<!-- properties -->
+
+	<property environment="env"/>
+	<property name="java-ver" value="1.8"/>
+	<property name="java.mem" value="256m"/>
+	<property name="encoding" value="UTF-8"/>
+	<property name="jar.name" value="${ant.project.name}"/> <!-- TODO: set jar name, use project name as default -->
+
+	<property name="dir.src" location="${basedir}/src"/>
+	<property name="dir.classes" location="${basedir}/classes"/>
+	<property name="dir.lib" location="${basedir}/lib"/>
+	<property name="dir.dist" location="${basedir}/dist"/>
+
+	<!-- =========================================================================================================== -->
+	<!-- path elements -->
+
+	<path id="path.jars">
+		<fileset dir="${dir.lib}">
+			<include name="**/*.jar"/>
+		</fileset>
+	</path>
+
+	<!-- =========================================================================================================== -->
+	<!-- public targets -->
+
+	<target name="readme" description="build script how-to.">
+		<echo message="========================================"/>
+		<echo message="1. run 'ant env' to check the project's prerequisite."/>
+		<echo message="..."/> <!-- TODO: print other necessary messages. -->
+		<echo message="========================================"/>
+	</target>
+
+	<target name="env" description="show environment variables.">
+		<echo message="ant version: ${ant.version}"/>
+		<echo message="ant java version: ${ant.java.version}"/>
+		<echo message="project name: ${ant.project.name}"/>
+		<echo message="ant build file: ${ant.file}"/>
+		<echo message="java home: ${env.JAVA_HOME}"/>
+	</target>
+
+	<target name="clean" description="clean output files.">
+		<delete dir="${dir.classes}" failonerror="off"/>
+		<delete dir="${dir.dist}" failonerror="off"/>
+		<echo message="done."/>
+	</target>
+
+	<target name="init" description="initialize folders.">
+		<mkdir dir="${dir.classes}"/>
+		<mkdir dir="${dir.dist}"/>
+		<echo message="done."/>
+	</target>
+
+	<target name="compile" description="compile source code." depends="clean, init">
+		<javac srcdir="${dir.src}" destdir="${dir.classes}" includeAntRuntime="yes" fork="yes"
+				source="${java.ver}" target="${java.ver}" encoding="${java.encoding}" memoryInitialSize="${java.mem}"
+				memoryMaximumSize="${java.mem}" debug="true" debuglevel="line,vars,source">
+			<classpath refid="path.jars"/>
+			<include name="**/*.java"/>
+		</javac>
+		<echo message="done."/>
+	</target>
+
+	<target name="package" description="package jar file." depends="compile">
+		<jar destfile="${dir.dist}/${jar.name}.jar">
+			<manifest>
+				<attribute name="Main-Class" value=""/> <!-- TODO: set full path for main class -->
+				<attribute name="Class-Path" value="."/> <!-- TODO: set full classpath -->
+			</manifest>
+		</jar>
+		<echo message="done."/>
+	</target>
+
+</project>
