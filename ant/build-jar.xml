@@ -1,15 +1,16 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project name="" default="readme" basedir="."> <!-- TODO: set project name -->
+<?xml version="1.0" encoding="utf-8"?>
+<project name="templateJarProject" default="readme" basedir="."> <!-- TODO: set project name -->
 	<description>
+		A typical java jar project.
 	</description>
 
 	<!-- =========================================================================================================== -->
 	<!-- properties -->
 
 	<property environment="env"/>
-	<property name="java-ver" value="1.8"/>
+	<property name="java-ver" value="1.8"/> <!-- 1.9, 10, 11 ... -->
 	<property name="java.mem" value="256m"/>
-	<property name="encoding" value="UTF-8"/>
+	<property name="encoding" value="utf-8"/>
 	<property name="jar.name" value="${ant.project.name}"/> <!-- TODO: set jar name, use project name as default -->
 
 	<property name="dir.src" location="${basedir}/src"/>
