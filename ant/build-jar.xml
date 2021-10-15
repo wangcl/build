@@ -28,13 +28,20 @@
 	</path>
 
 	<!-- =========================================================================================================== -->
+	<!-- timestamp -->
+
+	<tstamp>
+		<format property="now" pattern="yyyy-MM-dd hh:mm:ss" locale="en,US"/>
+	</tstamp>
+
+	<!-- =========================================================================================================== -->
 	<!-- public targets -->
 
-	<target name="readme" description="build script how-to.">
-		<echo message="========================================"/>
+	<target name="readme" description="build script how-to." depends="datetime">
+		<echo message="====================================================="/>
 		<echo message="1. run 'ant env' to check the project's prerequisite."/>
 		<echo message="..."/> <!-- TODO: print other necessary messages. -->
-		<echo message="========================================"/>
+		<echo message="====================================================="/>
 	</target>
 
 	<target name="env" description="show environment variables.">
@@ -57,7 +64,7 @@
 		<echo message="done."/>
 	</target>
 
-	<target name="compile" description="compile source code." depends="clean, init">
+	<target name="compile" description="compile source code." depends="datetime, clean, init">
 		<javac srcdir="${dir.src}" destdir="${dir.classes}" includeAntRuntime="yes" fork="yes"
 				source="${java.ver}" target="${java.ver}" encoding="${java.encoding}" memoryInitialSize="${java.mem}"
 				memoryMaximumSize="${java.mem}" debug="true" debuglevel="line,vars,source">
@@ -75,6 +82,10 @@
 			</manifest>
 		</jar>
 		<echo message="done."/>
+	</target>
+
+	<target name="datetime" description="print current datetime.">
+		<echo message="${now}"/>
 	</target>
 
 </project>
